@@ -1,0 +1,53 @@
+# Render Blueprint: Render > New > Blueprint > pick this repo.
+services:
+  - type: web
+    name: reliefpay
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: COOKIE_SECURE
+        value: "true"
+      - key: TRUST_PROXY
+        value: "true"
+      - key: SEED_DEMO_DATA
+        value: "true"
+      - key: JUDGE_DEMO_LOGIN
+        value: "true"
+      - key: AI_PROVIDER
+        value: gemini
+      - key: GEMINI_MODEL
+        value: gemini-3.6-flash
+      - key: PAYPAL_BASE_URL
+        value: https://api-m.sandbox.paypal.com
+      - key: JWT_SECRET
+        generateValue: true
+      # Typed in the Render dashboard (never committed):
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: REVIEWER_EMAIL
+        sync: false
+      - key: REVIEWER_PASSWORD
+        sync: false
+      - key: PAYPAL_CLIENT_ID
+        sync: false
+      - key: PAYPAL_CLIENT_SECRET
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: SANDBOX_RECIPIENT_EMAILS
+        sync: false
+      - key: PAYPAL_WEBHOOK_ID
+        sync: false
+    # Free plan: the database resets to the demo data when the service restarts (fine for judging).
+    # To keep data, use a paid plan and uncomment:
+    # disk:
+    #   name: reliefpay-data
+    #   mountPath: /data
+    #   sizeGB: 1

@@ -1,0 +1,24 @@
+# One command:  docker compose up --build    ->  open http://localhost:8080
+services:
+  backend:
+    build: ./backend
+    env_file: ./backend/.env
+    environment:
+      DATA_DIR: /data
+      FRONTEND_ORIGIN: http://localhost:8080
+      TRUST_PROXY: "true"
+    volumes:
+      - reliefpay-data:/data          # SQLite database + uploaded photos survive restarts
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  reliefpay-data:

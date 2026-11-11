@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --color-navy-950: #0b1640;
+  --color-navy-900: #13235b;
+  --color-navy-800: #1b2f78;
+  --color-navy-700: #243c96;
+  --color-brand-600: #1f5eff;
+  --color-brand-500: #3b74ff;
+  --color-brand-100: #e3ebff;
+  --color-brand-50: #f1f5ff;
+  --color-sun-400: #facc4b;
+  --color-sun-100: #fff4cf;
+  --color-leaf-500: #34a77f;
+  --color-leaf-100: #ddf3ea;
+  --color-coral-500: #f2665a;
+  --color-coral-100: #fde4e1;
+  --color-canvas: #eef0f4;
+  --shadow-card: 0 1px 2px rgb(16 24 64 / 0.04), 0 8px 24px -12px rgb(16 24 64 / 0.12);
+  --shadow-lift: 0 2px 4px rgb(16 24 64 / 0.06), 0 22px 40px -18px rgb(16 24 64 / 0.28);
+}
+
+html { background: var(--color-canvas); }
+body { @apply font-sans text-slate-800 antialiased; }
+::selection { background: var(--color-sun-400); color: var(--color-navy-900); }
+
+/* Card patterns (like the reference wallet cards) */
+.card-wave {
+  background-image:
+    radial-gradient(120% 80% at 110% -10%, rgb(255 255 255 / 0.22), transparent 60%),
+    repeating-radial-gradient(circle at 120% 120%, rgb(255 255 255 / 0.10) 0 2px, transparent 2px 14px);
+}
+.shimmer {
+  background: linear-gradient(90deg, #e9edf3 0%, #f5f7fa 40%, #e9edf3 80%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite linear;
+}
+@keyframes shimmer { to { background-position: -200% 0; } }
+
+.scrollbar-thin::-webkit-scrollbar { width: 6px; height: 6px; }
+.scrollbar-thin::-webkit-scrollbar-thumb { background: #cfd5e1; border-radius: 9999px; }
+
+:focus-visible { outline: 3px solid var(--color-brand-500); outline-offset: 2px; border-radius: 10px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
